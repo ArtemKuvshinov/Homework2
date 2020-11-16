@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Homework2.Common.Swagger;
+
 
 namespace Homework2
 {
@@ -19,13 +21,14 @@ namespace Homework2
         {
             Configuration = configuration;
         }
-
+        
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.ConfigureSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +49,11 @@ namespace Homework2
             {
                 endpoints.MapControllers();
             });
+
+            app.UseCors();
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
+            
         }
     }
 }
