@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using AutoMapper;
 using Homework2.DataBase.Domain;
- using Homework2.Models.DTO;
+using Homework2.Models.DTO;
 
 
 namespace Homework2.Services.Mapping
@@ -11,7 +11,7 @@ namespace Homework2.Services.Mapping
     /// <summary>
     /// Профиль маппинга (здание).
     /// </summary>
-    class BuildingProfile : Profile
+    public class BuildingProfile : Profile
     {
         /// <summary>
         /// Инициализирует экземпляр <see cref="BuildingProfile"/>

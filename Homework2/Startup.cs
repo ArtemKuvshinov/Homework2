@@ -11,7 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Homework2.Common.Swagger;
-
+using Homework2.Services.Bootstrap;
+using Homework2.Services.Services;
+using AutoMapper;
+using System.Reflection;
 
 namespace Homework2
 {
@@ -20,14 +23,15 @@ namespace Homework2
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
-        
+        }        
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.ConfigureServices();// выбор реалищации интерфейсов.
+            services.AddAutoMapper(typeof(BuildingService).GetTypeInfo().Assembly);
             services.ConfigureSwagger();
         }
 
