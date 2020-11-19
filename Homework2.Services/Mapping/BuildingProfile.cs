@@ -24,8 +24,9 @@ namespace Homework2.Services.Mapping
                 .ForMember(x => x.NumberOfFloors, x => x.MapFrom(m => m.NumberOfFloors))
                 .ForMember(x => x.Square, x => x.MapFrom(m => m.Square))
                 .ForMember(x => x.CadastralNumber, x => x.MapFrom(m => m.CadastralNumber));
-
         }
+
+
 
     }
 }

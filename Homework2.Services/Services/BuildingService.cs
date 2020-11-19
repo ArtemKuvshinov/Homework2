@@ -5,6 +5,8 @@ using Homework2.Models.DTO;
 using Homework2.Services.Interfaces;
 using AutoMapper;
 using Homework2.DataBase.Mocks;
+using Homework2.DataBase.Domain;
+using System.Linq;
 
 namespace Homework2.Services.Services
 {
@@ -14,7 +16,9 @@ namespace Homework2.Services.Services
     /// <inheritdoc cref="IBuildingService"/>
     public class BuildingService : IBuildingService
     {
+        private List<Building> _listBuilding;
         private readonly IMapper _mapper;
+
 
         /// <summary>
         /// Пооключение автомаппера через DI
@@ -23,6 +27,7 @@ namespace Homework2.Services.Services
         public BuildingService(IMapper mapper)
         {
             _mapper = mapper;
+            _listBuilding = BuildingMock.GetBuilding().ToList<Building>();
         }
 
         /// <summary>
@@ -31,9 +36,52 @@ namespace Homework2.Services.Services
         /// <returns>Коллекция объектов BuildingDTO</returns>
         public IEnumerable<BuildingDTO> GetAsync()
         {
-            var buildings = BuildingMock.GetBuilding();
+            var buildings = _listBuilding;
             var response = _mapper.Map<IEnumerable<BuildingDTO>>(buildings); //mapping DM to DTO
             return response;
         }
+
+
+        /// <summary>
+        /// Получает объект "Здание"
+        /// </summary>
+        /// <param name= "id"> Идентификатор записи</param>
+        /// <returns>Объект BuildingDTO</returns>
+        public BuildingDTO Get(long id)
+        {
+            Building build = _listBuilding.Where(x => x.Id == id).FirstOrDefault<Building>();
+            BuildingDTO result = _mapper.Map<BuildingDTO>(build);
+            return result;
+        }
+
+        /// <summary>
+        /// Удаляет запись по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор записи</param>
+        public void Delete(long id)
+        {
+            _listBuilding.Remove(_listBuilding.Where(x => x.Id == id).FirstOrDefault<Building>());
+        }
+
+        /// <summary>
+        /// Добавляет новое здание
+        /// </summary>
+        /// <param name="newBuilding">Новый объект типа Building</param>
+        public void Add(Building newBuilding)
+        {
+            _listBuilding.Add(newBuilding);
+        }
+
+
+        /// <summary>
+        /// Изменяет объект Здание
+        /// </summary>
+        /// <param name="Building">Измененый объект типа Building</param>
+        public void Update(Building building)
+        {
+            int index = _listBuilding.FindIndex(x => x.Id == building.Id);
+            _listBuilding[index] = building;
+        }
+
     }
 }
