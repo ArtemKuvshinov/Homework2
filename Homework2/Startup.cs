@@ -30,7 +30,7 @@ namespace Homework2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.ConfigureServices();// выбор реалищации интерфейсов.
+            services.ConfigureServices();
             services.AddAutoMapper(typeof(BuildingService).GetTypeInfo().Assembly);
             services.ConfigureSwagger();
         }

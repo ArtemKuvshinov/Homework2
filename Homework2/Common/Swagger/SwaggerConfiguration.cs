@@ -18,7 +18,7 @@ namespace Homework2.Common.Swagger
             {
                 c.Title = "Buildings";
                 c.DocumentName = SwaggerDocParts.Buildings;
-                c.ApiGroupNames = new[] { SwaggerDocParts.Buildings }; //разбивает документацию API на отдельные ендпоинты
+                c.ApiGroupNames = new[] { SwaggerDocParts.Buildings };
                 c.GenerateXmlObjects = true;
             });
         }

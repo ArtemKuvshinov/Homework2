@@ -16,7 +16,6 @@ namespace Homework2.Services.Bootstrap
         /// <param name="services">Коллекция сервисов из Startup.</param>
         public static void ConfigureServices(this IServiceCollection services)
         {
-            // Выбор конкретной реализации для IBuildingService. В данном случае это BuildingService.
             services.AddTransient<IBuildingService, BuildingService>();
         }
     }

@@ -24,7 +24,6 @@ namespace Homework2
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-
                 });
     }
 }

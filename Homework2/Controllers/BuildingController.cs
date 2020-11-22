@@ -11,6 +11,9 @@ using Homework2.DataBase.Domain;
 
 namespace Homework2.Controllers
 {
+    /// <summary>
+    /// Контроллер для сущности Здание.
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     [ApiExplorerSettings(GroupName = SwaggerDocParts.Buildings)]
@@ -30,7 +33,6 @@ namespace Homework2.Controllers
             _logger = logger;
         }
 
-
         /// <summary>
         /// Получение доступного перечня зданий.
         /// </summary>
@@ -40,10 +42,9 @@ namespace Homework2.Controllers
         public IActionResult Get()
         {
             _logger.LogInformation("Buildings/Get was requested.");
-            var response = _buildingService.GetAsync();
+            var response = _buildingService.GetBuildings();
             return Ok(response);
         }
-
 
         /// <summary>
         /// Получаает иформацию о здании по идентификатору записи.  
@@ -55,7 +56,7 @@ namespace Homework2.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BuildingDTO))]
         public IActionResult Get(long id)
         {
-            var response = _buildingService.Get(id);
+            var response = _buildingService.GetBuilding(id);
 
             if (response == null)
             {
@@ -78,7 +79,7 @@ namespace Homework2.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(NoContentResult))]
         public IActionResult Delete(long id)
         {
-            var deletedBuilding = _buildingService.Get(id);
+            var deletedBuilding = _buildingService.GetBuilding(id);
 
             if (deletedBuilding == null)
             {
@@ -86,27 +87,24 @@ namespace Homework2.Controllers
                 return NotFound();
             }
 
-            _buildingService.Delete(id);
+            _buildingService.DeleteBuilding(id);
             _logger.LogInformation("Building/Object was deleted");
             return NoContent();
         }
 
-
         /// <summary>
-        /// Добавляет новое Здание
+        /// Добавляет новое Здание.
         /// </summary>
         /// <param name="newBuilding">Новая сущность "Здание"</param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(typeof(Building), 201)]
-        [ProducesResponseType(typeof(Building), 500)]
+        [ProducesResponseType(typeof(Building), 200)]
         public IActionResult Add([FromBody]Building newBuilding)
         {
-            _buildingService.Add(newBuilding);
+            _buildingService.AddBuilding(newBuilding);
             _logger.LogInformation("Building/Object was added.");
-            return CreatedAtRoute(new { id = newBuilding.Id }, newBuilding);//CreatedAtAction("Added building", new { id = newBuilding.Id }, newBuilding);
+            return Ok(newBuilding);
         }
-
 
         /// <summary>
         /// Изменяет информацию о здании.
@@ -117,7 +115,7 @@ namespace Homework2.Controllers
         [HttpPut]
         public IActionResult Put(Building building)
         {
-            var updatedBuilding = _buildingService.Get(building.Id);
+            var updatedBuilding = _buildingService.GetBuilding(building.Id);
 
             if (updatedBuilding == null)
             {
@@ -126,7 +124,7 @@ namespace Homework2.Controllers
             }
             else
             {
-                _buildingService.Update(building);
+                _buildingService.UpdateBuilding(building);
                 _logger.LogInformation("Building/Object was received");
                 return Ok(updatedBuilding);
             }

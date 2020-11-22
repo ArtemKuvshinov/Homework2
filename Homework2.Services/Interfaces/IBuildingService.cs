@@ -5,18 +5,22 @@ using Homework2.DataBase.Domain;
 namespace Homework2.Services.Interfaces
 {
     /// <summary>
-    /// Интерфейс для сервиса "Здание"
+    /// Интерфейс для сервиса "Здание".
     /// </summary>
    public interface IBuildingService
     {
-        IEnumerable<BuildingDTO> GetAsync();
+        IEnumerable<BuildingDTO> GetBuildings();
 
-        BuildingDTO Get(long id);
+        BuildingDTO GetBuilding(long id);
 
-        void Delete(long id);
+        long GetId(Building building);
 
-        void Add(Building newBuilding);
+        void DeleteBuilding(long id);
 
-        void Update(Building Building);
+        void AddBuilding(Building newBuilding);
+
+        void UpdateBuilding(Building building);
+
+     
     }
 }

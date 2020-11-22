@@ -5,7 +5,7 @@ using System.Text;
 namespace Homework2.DataBase.Domain
 {
     /// <summary>
-    /// Здание
+    /// Здание.
     /// </summary>
    public class Building
     {
